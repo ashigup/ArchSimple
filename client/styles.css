@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  #login {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  #repos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .repo {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .repo h3 {
+    margin: 0 0 10px;
+  }
+  
+  .repo p {
+    margin: 0 0 10px;
+  }
+  
+  .repo a {
+    color: #0366d6;
+    text-decoration: none;
+  }

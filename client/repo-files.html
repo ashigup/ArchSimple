@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repository Files</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        a {
+            text-decoration: none;
+            color: #0366d6;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Repository Files</h1>
+    <ul id="file-list"></ul>
+    <script>
+        async function fetchFiles() {
+            const params = new URLSearchParams(window.location.search);
+            const accessToken = params.get('access_token');
+            const owner = params.get('owner');
+            const repo = params.get('repo');
+
+            if (!accessToken || !owner || !repo) {
+                document.body.innerHTML = '<h1>Missing required parameters</h1>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/github/repo/files?access_token=${accessToken}&owner=${owner}&repo=${repo}`);
+                const files = await response.json();
+
+                console.log(files);
+
+                const fileList = document.getElementById('file-list');
+                files.forEach(file => {
+                    const listItem = document.createElement('li');
+                    if (file.type === 'file') {
+                        listItem.innerHTML = <a href="${file.html_url}" target="_blank">${file.name}</a>;
+                    } else if (file.type === 'dir') {
+                        listItem.innerHTML = <strong>${file.name}</strong>;
+                    }
+                    fileList.appendChild(listItem);
+                });
+            } catch (error) {
+                document.body.innerHTML = '<h1>Error fetching repository files</h1>';
+            }
+        }
+
+        window.onload = fetchFiles;
+    </script>
+</body>
+</html>
